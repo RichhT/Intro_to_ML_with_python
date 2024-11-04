@@ -1,4 +1,5 @@
 from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
 
 iris_dataset = load_iris()
 
@@ -34,6 +35,16 @@ print("Target: \n", iris_dataset['target'])
 
 # the meaning of these integers are given in the target_names array:
 print("Target name integer meaning:")
-
 for i in range(len(iris_dataset['target_names'])):
     print(i, ": ", iris_dataset["target_names"][i])
+
+# create a training and test split with the data using train_test_split
+X_train, X_test, y_train, y_test = train_test_split(
+    iris_dataset['data'], iris_dataset['target'], random_state=0
+)
+
+# by default this creates a 75% v 25% train to test split
+print("X train shape: ", X_train.shape)
+print("y train shape: ", y_train.shape)
+print("X test shape: ", X_test.shape)
+print("y test shape: ", y_test.shape)
