@@ -1,8 +1,10 @@
 from sklearn.datasets import load_iris
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import pandas as pd
 import mglearn
+import numpy as np
 
 iris_dataset = load_iris()
 
@@ -58,4 +60,19 @@ iris_dataframe = pd.DataFrame(X_train, columns=iris_dataset.feature_names)
 
 # create a scatter matrix rom the dataframe, color by y_train
 pd.plotting.scatter_matrix(iris_dataframe, c=y_train, figsize=(15, 15), marker='o', hist_kwds={'bins': 20}, s=60, alpha=.8, cmap=mglearn.cm3)
-plt.show()
+#plt.show()
+
+# create a KNN classifier class instantiation
+knn = KNeighborsClassifier(n_neighbors=1)
+
+# fit the X and y training data to the KNN classifier
+knn.fit(X_train, y_train)
+
+# create a new data point in a NumPy array. Note: it's a 2D array as scikit-learn always expects 2d arrays for data
+X_new = np.array([[5, 2.9, 1, 0.2]])
+print("X_new shape: ", X_new.shape)
+
+# use the knn classifier to make a prediction for the new datapoint
+prediction = knn.predict(X_new)
+print("Prediction: ", prediction)
+print("Predicted target name: ", iris_dataset['target_names'][prediction])
