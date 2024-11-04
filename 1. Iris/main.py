@@ -69,10 +69,19 @@ knn = KNeighborsClassifier(n_neighbors=1)
 knn.fit(X_train, y_train)
 
 # create a new data point in a NumPy array. Note: it's a 2D array as scikit-learn always expects 2d arrays for data
-X_new = np.array([[5, 2.9, 1, 0.2]])
+X_new = np.array([[5.1, 3.5, 1.4, 0.2]])
 print("X_new shape: ", X_new.shape)
 
 # use the knn classifier to make a prediction for the new datapoint
 prediction = knn.predict(X_new)
 print("Prediction: ", prediction)
 print("Predicted target name: ", iris_dataset['target_names'][prediction])
+
+# make predictions on the test data
+y_pred = knn.predict(X_test)
+print("Test set predictions: \n", y_pred)
+
+# calculate the accuracy of the classifier. y_pred == y_test is a boolean where 1 is true
+# np.mean takes the average values within the two arrays that it is given (y_pred and y_test)
+# therefore closer to 1 is best
+print("Test set score: {:.2f}".format(np.mean(y_pred == y_test)))
